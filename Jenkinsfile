@@ -1,11 +1,11 @@
 pipeline {
 	agent any
 	stages {
-		stage('Checkout SCM') {
-			steps {
-				git '/home/JenkinsDependencyCheckTest'
-			}
-		}
+		//stage('Checkout SCM') {
+			//steps {
+				//git '/home/JenkinsDependencyCheckTest'
+			//}
+		//}
 
 		stage('OWASP DependencyCheck') {
 			steps {
@@ -16,6 +16,7 @@ pipeline {
 	post {
 		success {
 			dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+			sh "sudo rm -R /var/localhost:8080/* /var/localhost:8080/.* || true"
 		}
 	}
 }
